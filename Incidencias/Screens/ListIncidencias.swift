@@ -8,46 +8,72 @@
 import SwiftUI
 
 struct ListIncidencias: View {
+    @StateObject private var viewModel = IncidentsViewModel()
+    
     var body: some View {
         VStack(spacing: 0) {
             TopBarGrey().ignoresSafeArea()
             
-            NavigationView {
-                List {
+            Text("Incidencias")
+                .font(.title.bold())
+            
+            if viewModel.isLoading {
+                ProgressView("Loading items...")
+            } else if let error = viewModel.errorMessage {
+                Text("Error: \(error)")
+                    .foregroundColor(.red)
+            } else {
+                List(viewModel.items) { item in
                     VStack(alignment: .leading){
-                        Text("Incidencia 1")
+                        Text(item.type)
                             .fontWeight(.bold)
                             .font(.system(size: 25))
                             .foregroundColor(.blue)
-                        Text("Detalles")
-                    }
-                    
-                    VStack(alignment: .leading){
-                        Text("Incidencia 1")
-                            .fontWeight(.bold)
-                            .font(.system(size: 25))
-                            .foregroundColor(.blue)
-                        Text("Detalles")
-                    }
-                    
-                    VStack(alignment: .leading){
-                        Text("Incidencia 1")
-                            .fontWeight(.bold)
-                            .font(.system(size: 25))
-                            .foregroundColor(.blue)
-                        Text("Detalles")
-                    }
-                    
-                    VStack(alignment: .leading){
-                        Text("Incidencia 1")
-                            .fontWeight(.bold)
-                            .font(.system(size: 25))
-                            .foregroundColor(.blue)
-                        Text("Detalles")
+                        Text(item.description)
                     }
                 }
-                .navigationTitle("Incidencias")
-            }.background(Color.white)
+            }
+            
+            /*
+            List {
+                VStack(alignment: .leading){
+                    Text("Incidencia 1")
+                        .fontWeight(.bold)
+                        .font(.system(size: 25))
+                        .foregroundColor(.blue)
+                    Text("Detalles")
+                }
+                
+                VStack(alignment: .leading){
+                    Text("Incidencia 1")
+                        .fontWeight(.bold)
+                        .font(.system(size: 25))
+                        .foregroundColor(.blue)
+                    Text("Detalles")
+                }
+                
+                VStack(alignment: .leading){
+                    Text("Incidencia 1")
+                        .fontWeight(.bold)
+                        .font(.system(size: 25))
+                        .foregroundColor(.blue)
+                    Text("Detalles")
+                }
+                
+                VStack(alignment: .leading){
+                    Text("Incidencia 1")
+                        .fontWeight(.bold)
+                        .font(.system(size: 25))
+                        .foregroundColor(.blue)
+                    Text("Detalles")
+                }
+            }
+             */
+            
+            //NavigationView {
+                
+                
+            //}.background(Color.white)
             
             Spacer()
             BottomBar()

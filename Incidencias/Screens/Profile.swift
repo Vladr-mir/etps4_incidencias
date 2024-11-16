@@ -15,6 +15,8 @@ struct Profile: View {
     @State private var role: String = ""
     @State private var isLoading = true
     
+    @StateObject private var userDataFetcher = UserDataFetcher()
+    
     var body: some View {
         VStack(spacing: 0) {
             TopBarGrey().ignoresSafeArea()
@@ -28,18 +30,27 @@ struct Profile: View {
             }.padding(.horizontal, 50)
             HStack {
                 VStack(alignment: .leading, spacing: 20) {
-                    VStack(alignment: .leading) {
-                        Text("Nombre")
-                            .fontWeight(.bold)
-                            .font(.system(size: 25))
-                        Text("\(userName)")
+                    
+                    if userDataFetcher.isLoading {
+                        ProgressView("Loading user data...")
+                    } else if let error = userDataFetcher.errorMessage {
+                        Text("Error: \(error)")
+                            .foregroundColor(.red)
+                    } else {
+                        VStack(alignment: .leading) {
+                            Text("Nombre")
+                                .fontWeight(.bold)
+                                .font(.system(size: 25))
+                            Text("\((userDataFetcher.profileData["name"] as? String)!)")
+                        }
+                        VStack(alignment: .leading) {
+                            Text("Rol")
+                                .fontWeight(.bold)
+                                .font(.system(size: 25))
+                            Text("\((userDataFetcher.profileData["role"] as? String)!)")
+                        }
                     }
-                    VStack(alignment: .leading) {
-                        Text("Rol")
-                            .fontWeight(.bold)
-                            .font(.system(size: 25))
-                        Text("\(role)")
-                    }                }
+                }
                 Spacer()
             }.padding(50)
             
@@ -47,40 +58,6 @@ struct Profile: View {
             BottomBar()
         }
         .tint(.black)
-        .onAppear {
-            fetchUserData()
-        }
-    }
-    
-    private func fetchUserData() {
-        // Ensure the user is logged in
-        if let currentUser = Auth.auth().currentUser {
-            // Fetch user email from Firebase Authentication
-            self.userEmail = currentUser.email ?? "No email available"
-            
-            // Optionally, fetch additional data (e.g., name) from Firestore
-            fetchUserProfile(userId: currentUser.uid)
-        } else {
-            self.isLoading = false
-            self.userEmail = "No user logged in"
-        }
-    }
-    
-    private func fetchUserProfile(userId: String) {
-        let db = Firestore.firestore()
-        
-        // Fetch additional user data from Firestore (if available)
-        db.collection("users").document(userId).getDocument { document, error in
-            if let document = document, document.exists {
-                let data = document.data()
-                self.userName = data?["name"] as? String ?? "No name available"
-                self.role = data?["role"] as? String ?? "No role available"
-            } else {
-                self.userName = "No profile found"
-                self.role = "No role found"
-            }
-            self.isLoading = false
-        }
     }
 }
 
