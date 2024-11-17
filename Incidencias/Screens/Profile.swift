@@ -14,12 +14,13 @@ struct Profile: View {
     @State private var userName: String = "Loading..."
     @State private var role: String = ""
     @State private var isLoading = true
+    @Binding var path: NavigationPath
     
     @StateObject private var userDataFetcher = UserDataFetcher()
     
     var body: some View {
         VStack(spacing: 0) {
-            TopBarGrey().ignoresSafeArea()
+            TopBarBasic().ignoresSafeArea()
             HStack {
                 Image(systemName: "person.circle")
                     .resizable()
@@ -38,6 +39,12 @@ struct Profile: View {
                             .foregroundColor(.red)
                     } else {
                         VStack(alignment: .leading) {
+                            Text("Usuario")
+                                .fontWeight(.bold)
+                                .font(.system(size: 25))
+                            Text("\((userDataFetcher.profileData["username"] as? String)!)")
+                        }
+                        VStack(alignment: .leading) {
                             Text("Nombre")
                                 .fontWeight(.bold)
                                 .font(.system(size: 25))
@@ -50,6 +57,19 @@ struct Profile: View {
                             Text("\((userDataFetcher.profileData["role"] as? String)!)")
                         }
                     }
+                    
+                    Button(action: {
+                        path.removeLast()
+                    }, label: {
+                        Text("Volver")
+                            .padding()
+                            .buttonStyle(.borderedProminent)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.red)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                            .padding(.horizontal)
+                    })
                 }
                 Spacer()
             }.padding(50)

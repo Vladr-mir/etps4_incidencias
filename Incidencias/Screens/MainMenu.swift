@@ -41,6 +41,7 @@ struct MainMenu: View {
                     Spacer()
                     
                     Button(action: {
+                        path.append("RegIncidencias")
                     }, label: {
                         Text("Registrar incidencia")
                             .padding()
@@ -55,6 +56,7 @@ struct MainMenu: View {
                     Spacer()
                     
                     Button(action: {
+                        path.append("ListIncidencias")
                     }, label: {
                         Text("Reporte")
                             .padding()
@@ -90,22 +92,6 @@ struct MainMenu: View {
             }
         }.toolbar(.hidden, for: .navigationBar)
     }
-    
-    /*
-    func logout() {
-        do {
-            try Auth.auth().signOut()
-            path = NavigationPath()
-        }
-        catch let error {
-            print("Error signing out: \(error)")
-        }
-    }
-    
-    func goToProfile() {
-        path.append("Profile")
-    }
-     */
 }
 
 //struct MainMenu_Previews: PreviewProvider {

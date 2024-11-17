@@ -52,16 +52,20 @@ struct SideMenu: View {
                 }
                        , label: {
                     Image(systemName: "person")
+                        .foregroundColor(Color.blue)
                     Text("Perfil").font(.title3.bold())
+                        .foregroundColor(Color.blue)
                 })
                 .padding(.top)
-
+                
                 Button(action: {
                     path.append("ListIncidencias")
                 }
                        , label: {
                     Image(systemName: "list.dash")
+                        .foregroundColor(Color.blue)
                     Text("Listar Incidencias").font(.title3.bold())
+                        .foregroundColor(Color.blue)
                 })
                 .padding(.top)
                 
@@ -70,10 +74,12 @@ struct SideMenu: View {
                 }
                        , label: {
                     Image(systemName: "arrow.up.doc")
+                        .foregroundColor(Color.blue)
                     Text("Registrar incidencias").font(.title3.bold())
+                        .foregroundColor(Color.blue)
                 })
                 .padding(.top)
-
+                
                 
                 Spacer()
                 
@@ -87,7 +93,7 @@ struct SideMenu: View {
                     }
                 }
                        , label: {
-                    Text("Salir").font(.title2.bold())
+                    Text("Salir").font(.title2.bold()).foregroundColor(Color.blue)
                 })
                 .padding(.bottom)
             }
@@ -107,20 +113,22 @@ struct SideMenu: View {
 }
 
 /*
-struct SideMenu_Previews: PreviewProvider {
-    static var previews: some View {
-        SideMenu()
-    }
-}
-*/
+ struct SideMenu_Previews: PreviewProvider {
+ static var previews: some View {
+ SideMenu()
+ }
+ }
+ */
 extension View {
     func getRect() -> CGRect {
         return UIScreen.main.bounds
     }
 }
 
-struct Profile_Previews: PreviewProvider {
-    static var previews: some View {
-        Profile()
-    }
-}
+/*
+ struct Profile_Previews: PreviewProvider {
+ static var previews: some View {
+ Profile()
+ }
+ }
+ */

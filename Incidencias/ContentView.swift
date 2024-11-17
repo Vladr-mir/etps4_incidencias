@@ -20,8 +20,6 @@ struct ContentView: View {
     @State private var updater:Bool = false
     
     var body: some View {
-        
-        
         NavigationStack(path: $path) {
             VStack(spacing: 0) {
                 Image("logo")
@@ -31,6 +29,7 @@ struct ContentView: View {
                     .offset(y: -40)
                 
                 TextField("Email", text: $email)
+                    .tint(.black)
                     .autocorrectionDisabled()
                     .autocapitalization(.none)
                     .padding()
@@ -41,6 +40,7 @@ struct ContentView: View {
                 
                 
                 SecureField("Password", text: $password)
+                    .tint(.black)
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(Color.gray.opacity(0.2))
@@ -70,15 +70,15 @@ struct ContentView: View {
                     }
                     
                     if value == "Profile" {
-                        Profile()
+                        Profile(path: $path)
                     }
                     
                     if value == "ListIncidencias" {
-                        ListIncidencias()
+                        ListIncidencias(path: $path)
                     }
                     
                     if value == "RegIncidencias" {
-                        RegIncidencias()
+                        RegIncidencias(path: $path)
                     }
 
                 }
@@ -94,7 +94,7 @@ struct ContentView: View {
                     }
                 }
             }
-        }
+        }.tint(Color.white)
     }
     
     private func login(email: String, password: String) {

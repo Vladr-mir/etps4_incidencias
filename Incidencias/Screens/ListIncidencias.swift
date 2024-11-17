@@ -9,10 +9,11 @@ import SwiftUI
 
 struct ListIncidencias: View {
     @StateObject private var viewModel = IncidentsViewModel()
+    @Binding var path: NavigationPath
     
     var body: some View {
         VStack(spacing: 0) {
-            TopBarGrey().ignoresSafeArea()
+            TopBarBasic().ignoresSafeArea()
             
             Text("Incidencias")
                 .font(.title.bold())
@@ -30,60 +31,24 @@ struct ListIncidencias: View {
                             .font(.system(size: 25))
                             .foregroundColor(.blue)
                         Text(item.description)
+                        
+                        NavigationLink(destination: ShowIncidencia(type: item.type, branch: item.branch, description: item.description, path: $path)) {
+                        }
                     }
                 }
             }
             
-            /*
-            List {
-                VStack(alignment: .leading){
-                    Text("Incidencia 1")
-                        .fontWeight(.bold)
-                        .font(.system(size: 25))
-                        .foregroundColor(.blue)
-                    Text("Detalles")
-                }
-                
-                VStack(alignment: .leading){
-                    Text("Incidencia 1")
-                        .fontWeight(.bold)
-                        .font(.system(size: 25))
-                        .foregroundColor(.blue)
-                    Text("Detalles")
-                }
-                
-                VStack(alignment: .leading){
-                    Text("Incidencia 1")
-                        .fontWeight(.bold)
-                        .font(.system(size: 25))
-                        .foregroundColor(.blue)
-                    Text("Detalles")
-                }
-                
-                VStack(alignment: .leading){
-                    Text("Incidencia 1")
-                        .fontWeight(.bold)
-                        .font(.system(size: 25))
-                        .foregroundColor(.blue)
-                    Text("Detalles")
-                }
-            }
-             */
-            
-            //NavigationView {
-                
-                
-            //}.background(Color.white)
-            
             Spacer()
             BottomBar()
         }
-
+        
     }
 }
 
-struct ListIncidencias_Previews: PreviewProvider {
-    static var previews: some View {
-        ListIncidencias()
-    }
-}
+/*
+ struct ListIncidencias_Previews: PreviewProvider {
+ static var previews: some View {
+ ListIncidencias()
+ }
+ }
+ */

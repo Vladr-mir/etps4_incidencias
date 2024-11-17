@@ -21,11 +21,11 @@ class IncidentsViewModel: ObservableObject {
     }
     
     func addItem(type: String, branch: String, description: String) {
-        var id = UUID().uuidString
+        let id = UUID().uuidString
         let newItem = Item(id: id, type: type, branch: branch, description: description)
         let itemData = newItem.toDictionary()
         
-        db.collection("items").document(newItem.id).setData(itemData) { error in
+        db.collection("incidents").document(newItem.id).setData(itemData) { error in
             if let error = error {
                 self.errorMessage = "Error adding item: \(error.localizedDescription)"
                 print(self.errorMessage ?? "")

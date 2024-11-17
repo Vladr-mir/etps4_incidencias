@@ -17,8 +17,10 @@
 		68B7BBEA2CBA525200625085 /* BottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B7BBE92CBA525200625085 /* BottomBar.swift */; };
 		68BC44952CE6C6750018BFD3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68BC44942CE6C6740018BFD3 /* GoogleService-Info.plist */; };
 		68BC44992CE6DA960018BFD3 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BC44982CE6DA960018BFD3 /* SideMenu.swift */; };
-		68CDC55B2CE802F2002E715A /* TopBarGrey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CDC55A2CE802F2002E715A /* TopBarGrey.swift */; };
 		68CDC55D2CE8740A002E715A /* incidentsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CDC55C2CE8740A002E715A /* incidentsData.swift */; };
+		68CDC55F2CE97224002E715A /* ShowIncidencia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CDC55E2CE97224002E715A /* ShowIncidencia.swift */; };
+		68CDC5612CE97E32002E715A /* incidentTypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CDC5602CE97E32002E715A /* incidentTypeData.swift */; };
+		68CDC5632CE99BB4002E715A /* branchesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CDC5622CE99BB4002E715A /* branchesData.swift */; };
 		68CE47C22CD8AAB4007E57E5 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 68CE47C12CD8AAB4007E57E5 /* FirebaseAppCheck */; };
 		68CE47C42CD8AAB4007E57E5 /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 68CE47C32CD8AAB4007E57E5 /* FirebaseAppDistribution-Beta */; };
 		68CE47C62CD8AAB4007E57E5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 68CE47C52CD8AAB4007E57E5 /* FirebaseAuth */; };
@@ -51,8 +53,10 @@
 		68B7BBE92CBA525200625085 /* BottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBar.swift; sourceTree = "<group>"; };
 		68BC44942CE6C6740018BFD3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		68BC44982CE6DA960018BFD3 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
-		68CDC55A2CE802F2002E715A /* TopBarGrey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarGrey.swift; sourceTree = "<group>"; };
 		68CDC55C2CE8740A002E715A /* incidentsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = incidentsData.swift; sourceTree = "<group>"; };
+		68CDC55E2CE97224002E715A /* ShowIncidencia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowIncidencia.swift; sourceTree = "<group>"; };
+		68CDC5602CE97E32002E715A /* incidentTypeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = incidentTypeData.swift; sourceTree = "<group>"; };
+		68CDC5622CE99BB4002E715A /* branchesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = branchesData.swift; sourceTree = "<group>"; };
 		68D5509D2CB86C4F004A29AF /* Incidencias.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Incidencias.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68D550A02CB86C4F004A29AF /* IncidenciasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncidenciasApp.swift; sourceTree = "<group>"; };
 		68D550A22CB86C4F004A29AF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -94,6 +98,7 @@
 				680C19862CBAFF29001DF736 /* MainMenu.swift */,
 				680C19892CBB0954001DF736 /* ListIncidencias.swift */,
 				68BC44982CE6DA960018BFD3 /* SideMenu.swift */,
+				68CDC55E2CE97224002E715A /* ShowIncidencia.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -104,7 +109,6 @@
 				682DFC522CB87030002AEB10 /* TopBar.swift */,
 				68B7BBE92CBA525200625085 /* BottomBar.swift */,
 				680C197F2CBA56E6001DF736 /* ClickableComponents.swift */,
-				68CDC55A2CE802F2002E715A /* TopBarGrey.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -114,6 +118,8 @@
 			children = (
 				6811843C2CE7AD0C007C0C3B /* usersData.swift */,
 				68CDC55C2CE8740A002E715A /* incidentsData.swift */,
+				68CDC5602CE97E32002E715A /* incidentTypeData.swift */,
+				68CDC5622CE99BB4002E715A /* branchesData.swift */,
 			);
 			path = Scripts;
 			sourceTree = "<group>";
@@ -255,10 +261,12 @@
 				680C19832CBA5E86001DF736 /* Profile.swift in Sources */,
 				680C19852CBAFE66001DF736 /* regIncidencias.swift in Sources */,
 				680C19872CBAFF29001DF736 /* MainMenu.swift in Sources */,
+				68CDC5612CE97E32002E715A /* incidentTypeData.swift in Sources */,
 				68B7BBEA2CBA525200625085 /* BottomBar.swift in Sources */,
 				68D550A32CB86C4F004A29AF /* ContentView.swift in Sources */,
-				68CDC55B2CE802F2002E715A /* TopBarGrey.swift in Sources */,
+				68CDC5632CE99BB4002E715A /* branchesData.swift in Sources */,
 				68BC44992CE6DA960018BFD3 /* SideMenu.swift in Sources */,
+				68CDC55F2CE97224002E715A /* ShowIncidencia.swift in Sources */,
 				682DFC532CB87030002AEB10 /* TopBar.swift in Sources */,
 				68D550A12CB86C4F004A29AF /* IncidenciasApp.swift in Sources */,
 			);
