@@ -128,6 +128,9 @@ struct RegIncidencias: View {
                             print("error")
                         } else {
                             incidentsViewModel.addItem(type: incidentTypes!, branch: branches!, description: description)
+                            description = ""
+                            branches = nil
+                            incidentTypes = nil
                             alertType = .confirmation
                         }
                     }) {

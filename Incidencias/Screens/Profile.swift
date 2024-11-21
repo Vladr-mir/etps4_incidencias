@@ -20,7 +20,7 @@ struct Profile: View {
     @EnvironmentObject var userDataFetcher: UserDataFetcher
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
             TopBarBasic().ignoresSafeArea()
             HStack {
                 Image("defaultProfile")
@@ -29,53 +29,51 @@ struct Profile: View {
                     .scaledToFit()
                     .foregroundColor(.gray)
                 Spacer()
-            }.padding(.horizontal, 50)
-            HStack {
-                VStack(alignment: .leading, spacing: 20) {
-                    
-                    if userDataFetcher.isLoading {
-                        ProgressView("Loading user data...")
-                    } else if let error = userDataFetcher.errorMessage {
-                        Text("Error: \(error)")
-                            .foregroundColor(.red)
-                    } else {
-                        VStack(alignment: .leading) {
-                            Text("Usuario")
-                                .fontWeight(.bold)
-                                .font(.system(size: 25))
-                            Text("\((userDataFetcher.profileData["username"] as? String)!)")
-                        }
-                        VStack(alignment: .leading) {
-                            Text("Nombre")
-                                .fontWeight(.bold)
-                                .font(.system(size: 25))
-                            Text("\((userDataFetcher.profileData["name"] as? String)!)")
-                        }
-                        VStack(alignment: .leading) {
-                            Text("Rol")
-                                .fontWeight(.bold)
-                                .font(.system(size: 25))
-                            Text("\((userDataFetcher.profileData["role"] as? String)!)")
+            }.padding(.horizontal, 20)
+            
+            VStack(alignment: .leading, spacing: 20) {
+                if userDataFetcher.isLoading {
+                    ProgressView("Loading user data...")
+                } else if let error = userDataFetcher.errorMessage {
+                    Text("Error: \(error)")
+                        .foregroundColor(.red)
+                } else {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color.gray.opacity(0.2))
+                            .frame(width: (UIScreen.main.bounds.width - 30), height:250)
+                            .padding()
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("Usuario").font(.title.bold()).foregroundColor(.blue)
+                                Text("\((userDataFetcher.profileData["username"] as? String)!)")
+                                
+                                Text("Nombre").font(.title.bold()).foregroundColor(.blue)
+                                Text("\((userDataFetcher.profileData["name"] as? String)!)")
+                                
+                                Text("Rol").font(.title.bold()).foregroundColor(.blue)
+                                Text("\((userDataFetcher.profileData["role"] as? String)!)")
+                            }.padding(50)
+                            Spacer()
                         }
                     }
-                    
-                    Button(action: {
-                        path.removeLast()
-                    }, label: {
-                        Text("Volver")
-                            .padding()
-                            .buttonStyle(.borderedProminent)
-                            .frame(maxWidth: .infinity)
-                            .background(Color.red)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                            .padding(.horizontal)
-                    })
                 }
-                Spacer()
-            }.padding(50)
-            
+                
+                Button(action: {
+                    path.removeLast()
+                }, label: {
+                    Text("Volver")
+                        .padding()
+                        .buttonStyle(.borderedProminent)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        .padding(.horizontal)
+                })
+            }
             Spacer()
+
             BottomBar()
         }
         .tint(.black)
