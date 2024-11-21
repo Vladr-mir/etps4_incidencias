@@ -19,10 +19,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct IncidenciasApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject private var userData = UserDataFetcher()
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(userData)
         }
     }
 }

@@ -30,9 +30,11 @@ struct ListIncidencias: View {
                             .fontWeight(.bold)
                             .font(.system(size: 25))
                             .foregroundColor(.blue)
-                        Text(item.description)
                         
-                        NavigationLink(destination: ShowIncidencia(type: item.type, branch: item.branch, description: item.description, path: $path)) {
+                        Text(item.description)
+                        Text(item.time.formatted()).foregroundColor(.gray)
+                        
+                        NavigationLink(destination: ShowIncidencia(incident: item, viewModel: viewModel, path: $path)) {
                         }
                     }
                 }

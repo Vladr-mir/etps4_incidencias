@@ -13,6 +13,7 @@ class IncidentsViewModel: ObservableObject {
     @Published var items: [Item] = []
     @Published var isLoading: Bool = true
     @Published var errorMessage: String?
+    @Published var retrievedDate: Date? = nil
     
     private var db = Firestore.firestore()
     
@@ -22,7 +23,7 @@ class IncidentsViewModel: ObservableObject {
     
     func addItem(type: String, branch: String, description: String) {
         let id = UUID().uuidString
-        let newItem = Item(id: id, type: type, branch: branch, description: description)
+        let newItem = Item(id: id, type: type, branch: branch, description: description, isSolved: false, time: Date.now)
         let itemData = newItem.toDictionary()
         
         db.collection("incidents").document(newItem.id).setData(itemData) { error in
@@ -31,15 +32,14 @@ class IncidentsViewModel: ObservableObject {
                 print(self.errorMessage ?? "")
             } else {
                 print("Item successfully added!")
-                // Optionally fetch updated items list after adding a new item
                 self.fetchItems()
             }
         }
     }
     
-    // Fetch all documents from Firestore collection "items"
+    // Fetch all documents
     func fetchItems() {
-        db.collection("incidents").getDocuments { (snapshot, error) in
+        db.collection("incidents").whereField("isSolved", isEqualTo: false).limit(to: 200).getDocuments { (snapshot, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     self.errorMessage = "Error fetching items: \(error.localizedDescription)"
@@ -53,18 +53,48 @@ class IncidentsViewModel: ObservableObject {
                     return
                 }
                 
-                // Map Firestore documents to Item model
                 self.items = documents.compactMap { document in
                     let data = document.data()
                     let id = document.documentID
-                    // let title = data["title"] as? String ?? "Untitled"
                     let description = data["description"] as? String ?? "No description"
                     let branch = data["branch"] as? String ?? "No branch"
                     let type = data["type"] as? String ?? "No type"
-                    return Item(id: id, type: type, branch: branch, description: description)
+                    let isSolved = data["isSolved"] as? Bool ?? false
+
+                    // Debugging log: Check the value of `time`
+                    /*
+                     if let timestamp = data["time"] as? Timestamp {
+                        print("Document ID: \(id), Time: \(timestamp.dateValue())")
+                    } else {
+                        print("Document ID: \(id), Time field is missing or not a Timestamp.")
+                    }
+                    */
+                    // Extract timestamp and convert to Date
+                    let time: Date = (data["time"] as? Timestamp)?.dateValue() ?? Date.now
+                    
+                    return Item(id: id, type: type, branch: branch, description: description, isSolved: isSolved, time: time)
                 }
                 
                 self.isLoading = false
+            }
+        }
+    }
+
+    
+    func markAsSolved(documentID: String) {
+        // Get a reference to the Firestore database
+        let isSolved: Bool = true
+        let db = Firestore.firestore()
+        
+        // Reference the document
+        let documentRef = db.collection("incidents").document(documentID)
+        
+        // Update the field
+        documentRef.updateData(["isSolved": isSolved]) { error in
+            if let error = error {
+                print("Error updating document: \(error)")
+            } else {
+                print("Document successfully updated!")
             }
         }
     }
@@ -75,13 +105,17 @@ struct Item: Identifiable {
     var type: String
     var branch: String
     var description: String
+    var isSolved: Bool
+    var time: Date
     
     func toDictionary() -> [String: Any] {
         return [
             "id": id,
             "type": type,
             "branch": branch,
-            "description": description
+            "description": description,
+            "isSolved": isSolved,
+            "time": FieldValue.serverTimestamp()
         ]
     }
 }

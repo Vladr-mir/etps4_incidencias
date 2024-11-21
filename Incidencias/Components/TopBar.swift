@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct TopBar: View {
-    @StateObject private var userDataFetcher = UserDataFetcher()
+    //@StateObject private var userDataFetcher = UserDataFetcher()
+    @EnvironmentObject var userData: UserDataFetcher
+    
     var body: some View {
         ZStack(alignment: .top) {
             Rectangle()
@@ -22,16 +24,16 @@ struct TopBar: View {
                             .frame(width: 40.0, height: 40.0)
                             .foregroundColor(Color.white)
                         Spacer()
-                        if userDataFetcher.isLoading {
+                        if userData.isLoading {
                             Text("Loading...")
                                 .font(.title2.bold())
                                 .foregroundColor(.white)
-                        } else if let error = userDataFetcher.errorMessage {
+                        } else if let error = userData.errorMessage {
                             Text("\(error)")
                                 .font(.title2.bold())
                                 .foregroundColor(.white)
                         } else {
-                            Text("\((userDataFetcher.profileData["username"] as? String)!)")
+                            Text("\((userData.profileData["username"] as? String)!)")
                                 .fontWeight(.semibold)
                                 .foregroundColor(Color.white)
                                 .multilineTextAlignment(.trailing)
@@ -43,7 +45,9 @@ struct TopBar: View {
 }
 
 struct TopBarBasic: View {
-    @StateObject private var userDataFetcher = UserDataFetcher()
+    //@StateObject private var userDataFetcher = UserDataFetcher()
+    @EnvironmentObject var userData: UserDataFetcher
+    
     var body: some View {
         ZStack(alignment: .top) {
             Rectangle()
@@ -52,16 +56,16 @@ struct TopBarBasic: View {
                 .overlay(
                     HStack {
                         Spacer()
-                        if userDataFetcher.isLoading {
+                        if userData.isLoading {
                             Text("Loading...")
                                 .font(.title2.bold())
                                 .foregroundColor(.white)
-                        } else if let error = userDataFetcher.errorMessage {
+                        } else if let error = userData.errorMessage {
                             Text("\(error)")
                                 .font(.title2.bold())
                                 .foregroundColor(.white)
                         } else {
-                            Text("\((userDataFetcher.profileData["username"] as? String)!)")
+                            Text("\((userData.profileData["username"] as? String)!)")
                                 .fontWeight(.semibold)
                                 .foregroundColor(Color.white)
                                 .multilineTextAlignment(.trailing)

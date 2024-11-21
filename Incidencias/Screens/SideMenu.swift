@@ -14,7 +14,8 @@ struct SideMenu: View {
     @State private var userName: String = "Loading..."
     @State private var role: String = ""
     @State private var isLoading = true
-    @StateObject private var userDataFetcher = UserDataFetcher()
+    //@StateObject private var userDataFetcher = UserDataFetcher()
+    @EnvironmentObject var userDataFetcher: UserDataFetcher
     
     @State var userIsLoggedIn:Bool = false
     @State var updater: Bool = false
@@ -45,6 +46,30 @@ struct SideMenu: View {
                     
                     Text("\((userDataFetcher.profileData["role"] as? String)!)")
                         .font(.callout)
+                    
+                    if userDataFetcher.profileData["role"] as? String == "supervisor" {
+                        Button(action: {
+                            path.append("ListIncidencias")
+                        }
+                               , label: {
+                            Image(systemName: "list.dash")
+                                .foregroundColor(Color.blue)
+                            Text("Listar Incidencias").font(.title3.bold())
+                                .foregroundColor(Color.blue)
+                        })
+                        .padding(.top)
+                    } else {
+                        Button(action: {
+                            path.append("RegIncidencias")
+                        }
+                               , label: {
+                            Image(systemName: "arrow.up.doc")
+                                .foregroundColor(Color.blue)
+                            Text("Registrar incidencias").font(.title3.bold())
+                                .foregroundColor(Color.blue)
+                        })
+                        .padding(.top)
+                    }
                 }
                 
                 Button(action: {
@@ -57,35 +82,21 @@ struct SideMenu: View {
                         .foregroundColor(Color.blue)
                 })
                 .padding(.top)
-                
-                Button(action: {
-                    path.append("ListIncidencias")
+                /*
+                if(userDataFetcher.isLoading) {
+                    Text("Loading...")
+                        .font(.title2.bold())
+                } else {
+                    
+                    
                 }
-                       , label: {
-                    Image(systemName: "list.dash")
-                        .foregroundColor(Color.blue)
-                    Text("Listar Incidencias").font(.title3.bold())
-                        .foregroundColor(Color.blue)
-                })
-                .padding(.top)
-                
-                Button(action: {
-                    path.append("RegIncidencias")
-                }
-                       , label: {
-                    Image(systemName: "arrow.up.doc")
-                        .foregroundColor(Color.blue)
-                    Text("Registrar incidencias").font(.title3.bold())
-                        .foregroundColor(Color.blue)
-                })
-                .padding(.top)
-                
-                
+                */
                 Spacer()
                 
                 Button(action: {
                     do {
                         try Auth.auth().signOut()
+                        //userDataFetcher.profileData = [:]
                         path = NavigationPath()
                     }
                     catch let error {

@@ -16,13 +16,14 @@ struct Profile: View {
     @State private var isLoading = true
     @Binding var path: NavigationPath
     
-    @StateObject private var userDataFetcher = UserDataFetcher()
+    //@StateObject private var userDataFetcher = UserDataFetcher()
+    @EnvironmentObject var userDataFetcher: UserDataFetcher
     
     var body: some View {
         VStack(spacing: 0) {
             TopBarBasic().ignoresSafeArea()
             HStack {
-                Image(systemName: "person.circle")
+                Image("defaultProfile")
                     .resizable()
                     .frame(width: 100, height: 100)
                     .scaledToFit()

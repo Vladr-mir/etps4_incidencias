@@ -16,9 +16,9 @@ class UserDataFetcher: ObservableObject {
     @Published var isLoading: Bool = true
     @Published var errorMessage: String?
 
-    init() {
-        fetchUserData()
-    }
+    //init() {
+      //  fetchUserData()
+    //}
 
     // Function to fetch user data
     func fetchUserData() {

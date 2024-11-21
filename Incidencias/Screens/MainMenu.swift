@@ -12,7 +12,10 @@ struct MainMenu: View {
     @State var offset: Float = 0
     @State var lastStoredOffset: Float = 0
     @State var showSideMenu: Bool = false
+    
     @Binding var path: NavigationPath
+    @EnvironmentObject var userData: UserDataFetcher
+
     
     var body: some View {
         VStack {
@@ -40,34 +43,33 @@ struct MainMenu: View {
                         .offset(y: -20)
                     Spacer()
                     
-                    Button(action: {
-                        path.append("RegIncidencias")
-                    }, label: {
-                        Text("Registrar incidencia")
-                            .padding()
-                            .buttonStyle(.borderedProminent)
-                            .frame(maxWidth: .infinity)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                            .padding(.horizontal)
-                    })
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        path.append("ListIncidencias")
-                    }, label: {
-                        Text("Reporte")
-                            .padding()
-                            .buttonStyle(.borderedProminent)
-                            .frame(maxWidth: .infinity)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                            .padding(.horizontal)
-                    })
-                    
+                    if(userData.profileData["role"] as? String == "operador") {
+                        Button(action: {
+                            path.append("RegIncidencias")
+                        }, label: {
+                            Text("Registrar incidencia")
+                                .padding()
+                                .buttonStyle(.borderedProminent)
+                                .frame(maxWidth: .infinity)
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                                .padding(.horizontal)
+                        })
+                    } else {
+                        Button(action: {
+                            path.append("ListIncidencias")
+                        }, label: {
+                            Text("Reporte")
+                                .padding()
+                                .buttonStyle(.borderedProminent)
+                                .frame(maxWidth: .infinity)
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                                .padding(.horizontal)
+                        })
+                    }
                     
                     Spacer()
                     BottomBar()
